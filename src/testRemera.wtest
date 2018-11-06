@@ -1,0 +1,44 @@
+
+import remeras.*
+
+describe "Test para remeras" {
+	
+	var verde = new Color (esBasico = false)
+	var gris = new Color (esBasico = true)
+	var blanco = new Color (esBasico = true)	
+	
+	var sublimadoFrozen = new Sublimado (alto = 10, ancho = 15, copyright = 100)
+	
+	var remeraGris40 = new RemeraLisa (talle = 40, color = gris)
+	var remeraVerde42 = new RemeraLisa (talle = 42, color = verde)
+	
+	var remeraBordadaBlanca44 = new RemeraBordada (talle = 44, color = blanco, coloresBordado = 1)
+	var remeraBordada2Blanca44 = new RemeraBordada (talle = 44, color = blanco, coloresBordado = 4)
+	
+	var remeraFrozenGris42 = new RemeraSublimada (talle = 42, color = gris, sublimado = sublimadoFrozen)
+	
+	
+	test "una remera lisa color gris de talle 40 cuesta $80" {	
+		assert.equals(remeraGris40.precio(), 80)	
+	}
+	
+	test "una remera lisa color verde de talle 42 cuesta $110" {	
+		assert.equals(remeraVerde42.precio(), 110)	
+	}	
+	
+	test "una remera bordada a 1 hilo color blanca de talle 44 cuesta $120" {	
+		assert.equals(remeraBordadaBlanca44.precio(), 120)	
+	}
+
+	test "una remera bordada a 4 hilos color blanca de talle 44 cuesta $140" {	
+		assert.equals(remeraBordada2Blanca44.precio(), 140)	
+	}	
+
+	test "una remera sublimada con costo de copyright de 100 color gris de talle 44 cuesta $275" {	
+		assert.equals(remeraFrozenGris42.precio(), 275)	
+	}	
+		
+	
+}
+
+
