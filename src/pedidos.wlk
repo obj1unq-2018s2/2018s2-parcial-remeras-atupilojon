@@ -50,7 +50,7 @@ class Sucursal {
 	
 	method ventasSucursal() = pedidos.sum { pedido => pedido.precioPedido() }
 	
-	method pedidosDeUnModelo(modelo) = pedidos.count { pedido => pedido.esDeModelo(modelo) }
+	method pedidosDeUnColor(color) = pedidos.count { pedido => pedido.esDeColor(color) }
 	
 	method elPedidoMasCaro() = pedidos.max { pedido => pedido.precioPedido() }
 	
