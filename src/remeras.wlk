@@ -29,6 +29,8 @@ class RemeraLisa {
 		return self.precioPorTalle() * self.adicionalColor()	
 	}
 	
+	method descuento() = 10
+	
 }
 
 class RemeraBordada inherits RemeraLisa {
@@ -38,6 +40,8 @@ class RemeraBordada inherits RemeraLisa {
 	method adicionalBordado() = (coloresBordado * 10).max(20)
 	
 	override method precio() = super() + self.adicionalBordado()
+	
+	override method descuento() = 2
 	
 }
 
@@ -49,11 +53,21 @@ class RemeraSublimada inherits RemeraLisa {
 	
 	override method precio() = super() + self.adicionalSublimado()
 	
+	override method descuento() {
+		if (sublimado.conConvenio()) {
+			return 20
+		}
+		else {
+			return super()
+		}
+	}
+	
 }
 
 class Sublimado {
 	
 	const property copyright		// costo por derecho de autor
+	const property conConvenio
 	const property ancho
 	const property alto
 	

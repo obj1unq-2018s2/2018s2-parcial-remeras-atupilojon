@@ -1,5 +1,6 @@
 
 import remeras.*
+import pedidos.*
 
 describe "Test para remeras" {
 	
@@ -7,17 +8,29 @@ describe "Test para remeras" {
 	var gris = new Color (esBasico = true)
 	var blanco = new Color (esBasico = true)	
 	
-	var sublimadoFrozen = new Sublimado (alto = 10, ancho = 15, copyright = 100)
+	var sublimadoFrozen = new Sublimado (alto = 10, ancho = 15, copyright = 100, conConvenio = true)
+	var sublimadoFrozenTrucho = new Sublimado (alto = 10, ancho = 15, copyright = 100, conConvenio = false)
 	
 	var remeraGris40 = new RemeraLisa (talle = 40, color = gris)
+	var remeraGris42 = new RemeraLisa (talle = 42, color = gris)
 	var remeraVerde42 = new RemeraLisa (talle = 42, color = verde)
 	
 	var remeraBordadaBlanca44 = new RemeraBordada (talle = 44, color = blanco, coloresBordado = 1)
 	var remeraBordada2Blanca44 = new RemeraBordada (talle = 44, color = blanco, coloresBordado = 4)
 	
 	var remeraFrozenGris42 = new RemeraSublimada (talle = 42, color = gris, sublimado = sublimadoFrozen)
+	var otraRemeraFrozenGris42 = new RemeraSublimada (talle = 42, color = gris, sublimado = sublimadoFrozenTrucho)
 	
+	var flores = new Sucursal (cantMinima = 10)
+	var avellaneda = new Sucursal (cantMinima = 3)
 	
+	var pedido1 = new Pedido (modeloPedido = remeraGris42, cantidadPedido = 5, sucursal = flores)
+	var pedido2 = new Pedido (modeloPedido = remeraGris42, cantidadPedido = 5, sucursal = avellaneda)
+	var pedido3 = new Pedido (modeloPedido = remeraFrozenGris42, cantidadPedido = 4, sucursal = flores)
+	var pedido4 = new Pedido (modeloPedido = remeraFrozenGris42, cantidadPedido = 4, sucursal = avellaneda)
+	var pedido5 = new Pedido (modeloPedido = otraRemeraFrozenGris42, cantidadPedido = 4, sucursal = avellaneda)
+		
+	// test remeras
 	test "una remera lisa color gris de talle 40 cuesta $80" {	
 		assert.equals(remeraGris40.precio(), 80)	
 	}
@@ -38,6 +51,33 @@ describe "Test para remeras" {
 		assert.equals(remeraFrozenGris42.precio(), 275)	
 	}	
 		
+	// test pedidos
+	test "un pedido por 5 remeras lisas grises talle 42 tiene un precio de $500 en Flores" {
+		flores.agregarPedido(pedido1)
+		assert.equals(pedido1.precioPedido(), 500)
+		
+	}
+	
+	test "El mismo pedido en Avellaneda se vende a $450" {
+		avellaneda.agregarPedido(pedido2)
+		assert.equals(pedido2.precioPedido(), 450)
+	}
+	
+	test "un pedido de 4 remeras de Frozen con convenio con Disney en Flores se venderían a $1100" {
+		flores.agregarPedido(pedido3)
+		assert.equals(pedido3.precioPedido(), 1100)
+				
+	}
+	
+	test "en Avellaneda, mismo pedido anterior costaría un 20% menos ($880)" {
+		avellaneda.agregarPedido(pedido4)
+		assert.equals(pedido4.precioPedido(), 880)		
+	}
+	
+	test "sin convenio con Disney, en Avellaneda, mismo pedido anterior costaría un 10% menos ($990)" {
+		avellaneda.agregarPedido(pedido5)
+		assert.equals(pedido5.precioPedido(), 990)			
+	}
 	
 }
 
