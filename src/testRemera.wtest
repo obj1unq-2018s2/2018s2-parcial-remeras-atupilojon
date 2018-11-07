@@ -29,7 +29,9 @@ describe "Test para remeras" {
 	var pedido3 = new Pedido (modeloPedido = remeraFrozenGris42, cantidadPedido = 4, sucursal = flores)
 	var pedido4 = new Pedido (modeloPedido = remeraFrozenGris42, cantidadPedido = 4, sucursal = avellaneda)
 	var pedido5 = new Pedido (modeloPedido = otraRemeraFrozenGris42, cantidadPedido = 4, sucursal = avellaneda)
-		
+	
+	var comercio1 = new Comercio()
+	
 	// test remeras
 	test "una remera lisa color gris de talle 40 cuesta $80" {	
 		assert.equals(remeraGris40.precio(), 80)	
@@ -65,8 +67,7 @@ describe "Test para remeras" {
 	
 	test "un pedido de 4 remeras de Frozen con convenio con Disney en Flores se venderían a $1100" {
 		flores.agregarPedido(pedido3)
-		assert.equals(pedido3.precioPedido(), 1100)
-				
+		assert.equals(pedido3.precioPedido(), 1100)			
 	}
 	
 	test "en Avellaneda, mismo pedido anterior costaría un 20% menos ($880)" {
@@ -79,6 +80,53 @@ describe "Test para remeras" {
 		assert.equals(pedido5.precioPedido(), 990)			
 	}
 	
+	// registro de pedidos de Comercio
+	test "ingresar pedido1 en flores"{
+		comercio1.agregarSucursal(flores)
+		comercio1.registarPedido(flores, pedido1)
+		
+		assert.that(flores.pedidos().contains(pedido1))
+	}
+	
+	test "total facturado con sucursal flores con pedido1 y pedido3 (sin descuentos) de test anteriores
+			debe dar 1600" {
+		comercio1.agregarSucursal(flores)
+		comercio1.registarPedido(flores, pedido1)
+		comercio1.registarPedido(flores, pedido3)
+		
+		assert.equals(comercio1.totalFacturado(), 1600)
+	}
+
+	test "total facturado por sucursal flores con pedido1 y pedido3 (sin descuentos) de test anteriores
+			debe dar 1600" {
+		comercio1.agregarSucursal(flores)
+		comercio1.agregarSucursal(avellaneda)
+		comercio1.registarPedido(flores, pedido1)
+		comercio1.registarPedido(flores, pedido3)
+		comercio1.registarPedido(avellaneda, pedido2)
+		comercio1.registarPedido(avellaneda, pedido4)
+				
+		assert.equals(comercio1.totalFacturadoSucursal(flores), 1600)
+	}
+	
+	test "todos los pedidos son remeras de color gris" {
+		comercio1.agregarSucursal(flores)
+		comercio1.agregarSucursal(avellaneda)
+		comercio1.registarPedido(flores, pedido1)
+		comercio1.registarPedido(flores, pedido3)
+		comercio1.registarPedido(avellaneda, pedido2)
+		comercio1.registarPedido(avellaneda, pedido4)
+		
+		assert.that()	
+	}
+	
 }
+
+
+
+
+
+
+
 
 

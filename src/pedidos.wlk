@@ -5,6 +5,10 @@ class Comercio {
 	
 	var property sucursales = []
 	
+	method agregarSucursal(sucursal) {
+		sucursales.add(sucursal)
+	}
+	
 	method registarPedido(sucursal, pedido) {
 		sucursal.agregarPedido(pedido)
 	}
@@ -13,13 +17,14 @@ class Comercio {
 	
 	method totalFacturadoSucursal(sucursal) {
 		if (sucursales.contains(sucursal)) {
-			sucursal.ventasSucursal()
+			return sucursal.ventasSucursal()
+		}
+		else {
+			return new Exception("El comercio no tiene una sucursal con ese nombre")
 		}
 	}
 	
-	method pedidosPorModelo(modelo) = sucursales.sum { sucursal => sucursal.pedidosDeUnModelo(modelo) }
-	
-	//method pedidosTotales() = sucursales.map { sucursal => sucursal.pedidos() }
+	method pedidosPorColor(color) = sucursales.sum { sucursal => sucursal.pedidosDeUnColor(color) }
 	
 	method pedidoMasCaro() = sucursales.max { sucursal => sucursal.elPedidoMasCaro() }
 	
@@ -77,7 +82,7 @@ class Pedido {
 	
 	method precioPedido() = self.precioBase() * (1 - self.porcentajeDescuento())
 	
-	method esDeModelo(modelo) = modeloPedido == modelo
+	method esDeColor(color) = modeloPedido.color() == color
 	
 	method talleModeloPedido() = modeloPedido.talle()
 	
