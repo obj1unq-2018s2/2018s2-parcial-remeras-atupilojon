@@ -128,9 +128,19 @@ describe "Test para remeras" {
 		comercio1.registarPedido(avellaneda, pedido2)
 		comercio1.registarPedido(avellaneda, pedido4)
 		
-		assert.that(comercio1.pedidoMasCaro().contains(pedido3))		
+		assert.equals(comercio1.pedidoMasCaro(), pedido3)		
 	}
 	
+	test "la sucursal que mas facturó es flores" {
+		comercio1.agregarSucursal(flores)
+		comercio1.agregarSucursal(avellaneda)
+		comercio1.registarPedido(flores, pedido1)
+		comercio1.registarPedido(flores, pedido3)
+		comercio1.registarPedido(avellaneda, pedido2)
+		comercio1.registarPedido(avellaneda, pedido4)
+		
+		assert.equals(comercio1.sucursalQueMasFacturo(), flores)	
+	}
 }
 
 
