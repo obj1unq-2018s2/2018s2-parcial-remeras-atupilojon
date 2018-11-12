@@ -15,12 +15,12 @@ class Comercio {
 	
 	method totalFacturado() = sucursales.sum { sucursal => sucursal.ventasSucursal()}
 	
-	method totalFacturadoSucursal(sucursal) {
+	method totalFacturadoSucursal(sucursal) { // TODO Este pasamanos entre comercio y sucursal es innecesario.
 		if (sucursales.contains(sucursal)) {
 			return sucursal.ventasSucursal()
 		}
 		else {
-			return new Exception("El comercio no tiene una sucursal con ese nombre")
+			return new Exception("El comercio no tiene una sucursal con ese nombre") // TODO ¿nombre?
 		}
 	}
 	
@@ -29,7 +29,8 @@ class Comercio {
 	method pedidoMasCaro() = sucursales.max { sucursal => sucursal.elPedidoMasCaro() }
 	
 	method tallesPedidos() = sucursales.map { sucursal => sucursal.tallesPedidos() }.asSet()
-	
+
+	// TODO rangoTalles no debería ser un parámetro, el enunciado define un rango explícitamente.	
 	method tallesSinPedidos(rangoTalles) = rangoTalles.difference(self.tallesPedidos())
 	
 	method sucursalQueMasFacturo() = sucursales.max { sucursal => sucursal.ventasSucursal() }
